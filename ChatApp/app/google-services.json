@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "279407839026",
+    "firebase_url": "https://chatapp-1e477.firebaseio.com",
+    "project_id": "chatapp-1e477",
+    "storage_bucket": "chatapp-1e477.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279407839026:android:bef24e27a355a97b",
+        "android_client_info": {
+          "package_name": "com.logic.tech.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279407839026-0srjac8tc0imr3ogfenkhk167ja1ps4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1IsQTHS8fJsa-q_4I2PT_N1Ni3neZMEw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

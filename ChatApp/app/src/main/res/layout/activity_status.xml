@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.logic.tech.chatapp.StatusActivity">
+<include
+    layout="@layout/app_bar_layout"
+    android:id="@+id/status_app_bar"
+>
+</include>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textInputLayout"
+        android:layout_below="@+id/status_app_bar"
+        android:layout_alignParentStart="true">
+        <EditText
+            android:id="@+id/status_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/status_app_bar"
+            android:layout_marginTop="50dp"
+            android:hint="Change your Status" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/update_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textInputLayout"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="32dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:text="Update Status"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
