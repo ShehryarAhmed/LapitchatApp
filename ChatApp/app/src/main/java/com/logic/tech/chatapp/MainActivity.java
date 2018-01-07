@@ -69,10 +69,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if(id == R.id.setting_activity){
-            Intent settingActivity= new Intent(MainActivity.this,SettingsActivity.class);
+            Intent settingActivity = new Intent(MainActivity.this,SettingsActivity.class);
             startActivity(settingActivity);
-            finish();
+        }
 
+        if(id == R.id.all_users){
+            Intent allUsersActivity = new Intent(MainActivity.this,UsersActivity.class);
+            startActivity(allUsersActivity);
         }
         return super.onOptionsItemSelected(item);
     }

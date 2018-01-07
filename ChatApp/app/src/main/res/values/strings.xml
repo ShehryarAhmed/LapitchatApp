@@ -19,4 +19,7 @@
     <string name="request">REQUESTS</string>
     <string name="default_status">Hi there,I\'m using ChatApp</string>
     <string name="setting">Setting</string>
+    <string name="working">Working</string>
+    <string name="error_in_uploading">Error in uploading</string>
+    <string name="all_users">All Users</string>
 </resources>

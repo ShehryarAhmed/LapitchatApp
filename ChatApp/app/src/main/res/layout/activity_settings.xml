@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.logic.tech.chatapp.SettingsActivity">
-
+<include layout="@layout/app_bar_layout" android:id="@+id/setting_app_bar"></include>
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"
         android:layout_width="170dp"

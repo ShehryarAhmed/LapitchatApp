@@ -69,7 +69,6 @@ public class StatusActivity extends AppCompatActivity {
                             mProgress.dismiss();
                             Intent settingActivity = new Intent(getApplicationContext(),SettingsActivity.class);
                             startActivity(settingActivity);
-                            settingActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             finish();
                         }
                         else {
