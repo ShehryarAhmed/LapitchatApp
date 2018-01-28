@@ -30,7 +30,9 @@
         android:backgroundTint="@color/colorAccent"
         android:text="@string/already_have_account"
         android:textColor="@android:color/white"
-        android:elevation="20dp"/>
+        android:elevation="20dp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        />
 
     <Button
         android:id="@+id/reg_btn"

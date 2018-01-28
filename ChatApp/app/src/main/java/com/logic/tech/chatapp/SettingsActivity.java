@@ -53,7 +53,6 @@ public class SettingsActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +62,6 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
 
         mDisplayImage = (CircleImageView) findViewById(R.id.circleImageView);
@@ -86,14 +84,13 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String status = mStatus.getText().toString();
-                Intent statusActivity = new Intent(SettingsActivity.this,StatusActivity.class);
-                statusActivity.putExtra("status",status);
+                Intent statusActivity = new Intent(SettingsActivity.this, StatusActivity.class);
+                statusActivity.putExtra("status", status);
                 startActivity(statusActivity);
-                finish();
             }
         });
 
-        mChangeImageBtn.setOnClickListener( new View.OnClickListener() {
+        mChangeImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent galleryIntent = new Intent();
@@ -116,10 +113,14 @@ public class SettingsActivity extends AppCompatActivity {
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
                 mName.setText(name);
                 mStatus.setText(status);
-                if (image != "default") {
-                    Glide.with(SettingsActivity.this).load(image).into(mDisplayImage);
+                if (image.equalsIgnoreCase("default")) {
+                    mDisplayImage.setBackgroundResource(R.drawable.default_image);
+                } else {
+
+                    Glide.with(getApplicationContext()).load(image).into(mDisplayImage);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -153,27 +154,25 @@ public class SettingsActivity extends AppCompatActivity {
                 imageUri = result.getUri();
                 mDisplayImage.setImageURI(imageUri);
                 final StorageReference filePath =
-                        mImageStorage.child("profile_images").child(mCurrentuser.getUid()+".jpg");
+                        mImageStorage.child("profile_images").child(mCurrentuser.getUid() + ".jpg");
 
                 filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()){
-                        final String downloadUrl = task.getResult().getDownloadUrl().toString();
+                        if (task.isSuccessful()) {
+                            final String downloadUrl = task.getResult().getDownloadUrl().toString();
                             mUserDatabase.child("image").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         mProgressDialog.dismiss();
                                         Toast.makeText(SettingsActivity.this, "Uploading successful", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else {
+                                    } else {
 
                                     }
                                 }
                             });
-                        }
-                        else {
+                        } else {
                             Toast.makeText(SettingsActivity.this, R.string.error_in_uploading, Toast.LENGTH_SHORT).show();
 
                         }

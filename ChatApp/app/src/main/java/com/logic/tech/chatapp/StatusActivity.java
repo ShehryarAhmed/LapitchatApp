@@ -68,11 +68,11 @@ public class StatusActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             mProgress.dismiss();
                             Intent settingActivity = new Intent(getApplicationContext(),SettingsActivity.class);
+                            settingActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(settingActivity);
-                            finish();
                         }
                         else {
-                            Toast.makeText(StatusActivity.this, "", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StatusActivity.this, "changes is not save", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
