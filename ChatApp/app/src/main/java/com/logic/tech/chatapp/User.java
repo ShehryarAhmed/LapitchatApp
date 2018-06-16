@@ -8,6 +8,15 @@ public class User {
     String name;
     String status;
     String image;
+    String thumb_image;
+
+    public String getThumb_image() {
+        return thumb_image;
+    }
+
+    public void setThumb_image(String thumb__image) {
+        this.thumb_image = thumb__image;
+    }
 
     public User(){}
     public User(String name, String status, String image) {

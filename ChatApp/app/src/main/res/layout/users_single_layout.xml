@@ -3,22 +3,21 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView2"
+        android:id="@+id/single_user_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/default_image" />
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:id="@+id/single_usre_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/circleImageView2"
+        android:layout_alignTop="@+id/single_user_image"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/circleImageView2"
+        android:layout_toEndOf="@+id/single_user_image"
         android:text="Display Name"
         android:textColor="@android:color/black"
         android:textSize="16sp"

@@ -1,16 +1,23 @@
 package com.logic.tech.chatapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersActivity extends AppCompatActivity {
 
@@ -50,6 +57,19 @@ public class UsersActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(UserViewholder viewHolder, User model, int position) {
                 viewHolder.setName(model.getName());
+                viewHolder.setStatus(model.getStatus());
+                viewHolder.setImage(model.getThumb_image(),getApplicationContext());
+
+                final String userId = getRef(position).getKey();
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                        intent.putExtra("user_id",userId);
+                        startActivity(intent);
+                    }
+                });
+
             }
         };
         mUserList.setAdapter(firebaseRecyclerAdapter);
@@ -67,10 +87,12 @@ public class UsersActivity extends AppCompatActivity {
             userNameView.setText(name);
         }
         public void setStatus(String status){
-            TextView  textView =(TextView)  mView.findViewById(R.id.single_user_status);
-
+            TextView  userStatusView =(TextView)  mView.findViewById(R.id.single_user_status);
+            userStatusView.setText(status);
         }
-        public void setImage(){
+        public void setImage(String thumbImage, Context ctx){
+            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.single_user_image);
+            Glide.with(ctx).load(thumbImage).placeholder(R.drawable.default_image).into(userImageView);
 
         }
     }

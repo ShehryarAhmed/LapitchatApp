@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.logic.tech.chatapp.ProfileActivity">
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/default_image"
+        />
+
+    <TextView
+        android:id="@+id/user_id"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user name"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/user_status"
+        android:layout_below="@+id/user_id"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user stattus"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/num_of_friends"
+        android:layout_alignRight="@+id/sipreater_line"
+        android:layout_below="@id/user_status"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="384 friends"/>
+    <ImageView
+        android:id="@+id/sipreater_line"
+        android:layout_below="@+id/user_status"
+        android:layout_width="2dp"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@color/colorAccent"
+        />
+    <TextView
+        android:id="@+id/mutual_friend"
+        android:layout_alignLeft="@+id/sipreater_line"
+        android:layout_below="@id/user_status"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3 Mutual Friends"/>
+<Button
+    android:id="@+id/btn_send_request"
+    android:layout_below="@+id/mutual_friend"
+    android:layout_centerInParent="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:layout_marginTop="10dp"
+    android:text="Send Friend Request"
+    />
+    <Button
+        android:id="@+id/btn_declain_request"
+        android:layout_below="@+id/btn_send_request"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginTop="5dp"
+        android:text="Declain  Request"
+        android:visibility="invisible"
+        />
+</RelativeLayout>
