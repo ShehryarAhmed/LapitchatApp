@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -40,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabaseReference;
     private DatabaseReference mFriendReqDatabase;
     private DatabaseReference mFriendsDatabase;
+    private DatabaseReference mNotificationDatabase;
 
     private ProgressDialog mProgressDialog;
     private String mCurrentState = "not_friend";
@@ -60,9 +62,11 @@ public class ProfileActivity extends AppCompatActivity {
         final String userID = getIntent().getStringExtra("user_id");
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         Log.d("TAG", "onCreate: "+mCurrentUser.getUid());
+
         mUserDatabaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(userID);
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
         mFriendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
+        mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("Notification");
 
         profileImage = (ImageView) findViewById(R.id.profile_image);
         profileName = (TextView) findViewById(R.id.user_id);
@@ -167,12 +171,22 @@ public class ProfileActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
+
+                                HashMap<String,String> notificationData = new HashMap<>();
+                                notificationData.put("from",mCurrentUser.getUid());
+                                notificationData.put("type","request");
+                    mNotificationDatabase.child(userID).push().setValue(notificationData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(ProfileActivity.this, "Request Sent Successfully", Toast.LENGTH_SHORT).show();
 
                             mFriendReqSendBtn.setEnabled(true);
                             mCurrentState = "req_sent";
                             mFriendReqSendBtn.setText("Cancel Friend Request");
 
+
+                        }
+                    });
                             }
 
 
@@ -242,7 +256,7 @@ public class ProfileActivity extends AppCompatActivity {
                                                                 mFriendReqSendBtn.setText("Unfriend this profile");
 
                                                                 mFriendReqDeclin.setEnabled(true);
-                                                                mFriendReqDeclin.setVisibility(View.VISIBLE);
+                                                                mFriendReqDeclin.setVisibility(View.INVISIBLE);
 
                                                             }
                                                         });
