@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 
@@ -59,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String deviceToken = FirebaseInstanceId.getInstance().getToken();
                 String name = displayName.getEditText().getText().toString();
                 String email = userEmail.getEditText().getText().toString();
                 String password = userpassword.getEditText().getText().toString();
@@ -70,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mProgressDialog.setMessage("Please Wait while Create Your account");
                     mProgressDialog.setCanceledOnTouchOutside(false);
                     mProgressDialog.show();
-                    register_user(name, email, password);
+                    register_user(name, email, password,deviceToken);
 
 
                 }
@@ -78,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void register_user(final String name, String email, String password) {
+    private void register_user(final String name, String email, String password, final String deviceToken) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -92,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userMap.put("status", getString(R.string.default_status));
                     userMap.put("image", "default");
                     userMap.put("thumb_image", "default");
+                    userMap.put("device_token", deviceToken);
 
                     mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
