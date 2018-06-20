@@ -15,6 +15,18 @@
       },
       "oauth_client": [
         {
+          "client_id": "279407839026-jmgagmtrurm2937bafaen9j1hmq85sgu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.logic.tech.chatapp",
+            "certificate_hash": "2cbc33a75dbbf498908e386bd48144dd1b42f080"
+          }
+        },
+        {
+          "client_id": "279407839026-0srjac8tc0imr3ogfenkhk167ja1ps4b.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "279407839026-0srjac8tc0imr3ogfenkhk167ja1ps4b.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +41,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279407839026-0srjac8tc0imr3ogfenkhk167ja1ps4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
