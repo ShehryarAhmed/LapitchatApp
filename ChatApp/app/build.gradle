@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.android.support:design:26.+'
     implementation 'com.google.firebase:firebase-auth:10.2.1'
     implementation 'com.google.firebase:firebase-messaging:10.2.1'
+
     implementation 'com.google.firebase:firebase-database:10.2.1'
     implementation 'com.google.firebase:firebase-storage:10.2.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
