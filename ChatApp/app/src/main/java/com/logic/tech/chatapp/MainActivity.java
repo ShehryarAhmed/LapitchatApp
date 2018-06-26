@@ -12,6 +12,8 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,17 +24,23 @@ public class MainActivity extends AppCompatActivity {
     private SelectionPagerAdapter mSelectionPagerAdapter;
 
     private TabLayout mTabLayout;
+    private DatabaseReference mUserRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mAuth = FirebaseAuth.getInstance();
+
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.lapit_chat);
 
-        mViewPager = (ViewPager) findViewById(R.id.main_tab_pagers);
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("User").child(mAuth.getCurrentUser().getUid());
 
+        //tabs
+        mViewPager = (ViewPager) findViewById(R.id.main_tab_pagers);
         mSelectionPagerAdapter = new SelectionPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSelectionPagerAdapter);
 
@@ -50,8 +58,16 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser == null){
           sendToStart();
         }
+        else{
+            mUserRef.child("online").setValue(true);
+        }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mUserRef.child("online").setValue(false);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

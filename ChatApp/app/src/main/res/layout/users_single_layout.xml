@@ -8,7 +8,8 @@
         android:layout_height="64dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:src="@drawable/default_image"/>
 
     <TextView
         android:id="@+id/single_usre_name"
@@ -32,4 +33,13 @@
         android:textSize="14sp"
         android:layout_below="@+id/single_usre_name"
         android:layout_alignStart="@+id/single_usre_name" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/single_user_online_icon"
+        android:layout_width="25px"
+        android:layout_height="25px"
+        android:layout_alignTop="@+id/single_usre_name"
+        android:layout_toEndOf="@+id/single_user_status"
+        android:src="@color/colorGreen"
+        android:visibility="invisible" />
 </RelativeLayout>
