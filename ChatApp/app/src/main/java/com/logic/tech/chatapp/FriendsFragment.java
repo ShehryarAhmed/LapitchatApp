@@ -1,9 +1,13 @@
 package com.logic.tech.chatapp;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -80,21 +84,57 @@ public class FriendsFragment extends Fragment {
 
             viewHolder.setDate(model.getDate());
 
-            String list_user_id = getRef(position).getKey();
+            final String list_user_id = getRef(position).getKey();
 
             mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    String userName = dataSnapshot.child("name").getValue().toString();
-                    String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
+                    final String userName = dataSnapshot.child("name").getValue().toString();
+                    final String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
                     if (dataSnapshot.hasChild("online")){
-                        Boolean userOnline = (boolean) dataSnapshot.child("online").getValue();
+                        String userOnline =  dataSnapshot.child("online").getValue().toString();
                         viewHolder.setUserOnline(userOnline);
                     }
                     viewHolder.setName(userName);
                     viewHolder.setUserThumbImage(userThumb,getContext());
+
+                    viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            CharSequence options[] = new CharSequence[]{"Open Profile","Send message"};
+
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                            builder.setTitle("Select Options");
+                            builder.setItems(options, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    switch (i){
+                                        case 0:
+                                            Intent profile_intent = new Intent(getContext(),ProfileActivity.class);
+                                            profile_intent.putExtra("user_id",list_user_id);
+                                            startActivity(profile_intent);
+                                        break;
+                                        case 1:
+                                            Intent chat_intent = new Intent(getContext(),ChatActivity.class);
+                                            chat_intent.putExtra("user_id",list_user_id);
+                                            chat_intent.putExtra("user_name",userName);
+                                            chat_intent.putExtra("user_image",userThumb);
+                                            startActivity(chat_intent);
+                                        break;
+                                        default:
+                                        return;
+
+                                    }
+                                }
+                            });
+                            builder.show();
+                        }
+                    });
 
                 }
                 @Override
@@ -135,15 +175,14 @@ public class FriendsFragment extends Fragment {
 
         }
 
-        public void setUserOnline(boolean online_status){
+        public void setUserOnline(String online_status){
             CircleImageView userOnlineView = (CircleImageView) mView.findViewById(R.id.single_user_online_icon);
 
-            if(online_status==true){
+            if(online_status.equals("true")){
                 userOnlineView.setVisibility(View.VISIBLE);
             }
             else{
                 userOnlineView.setVisibility(View.INVISIBLE);
-
             }
         }
     }
