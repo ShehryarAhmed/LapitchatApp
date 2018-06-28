@@ -16,19 +16,22 @@
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:weightSum="10">
-        <ImageView
+        <ImageButton
+            android:id="@+id/chat_add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
             android:src="@drawable/ic_add_black_24dp"/>
         <EditText
+            android:id="@+id/chat_message_edt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="8"
             android:padding="10dp"
             android:hint="Type a messages..."/>
-        <ImageView
+        <ImageButton
+            android:id="@+id/chat_send_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

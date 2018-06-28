@@ -85,8 +85,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.log_out) {
+
             mAuth.signOut();
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
             sendToStart();
+
             return true;
         }
         if(id == R.id.setting_activity){
