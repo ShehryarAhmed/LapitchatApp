@@ -3,6 +3,8 @@ package com.logic.tech.chatapp;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,6 +47,11 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton mChatSendBtn;
     private EditText mChatMessageEdt;
     private String mCurrentUserId;
+
+    private RecyclerView mMessageList;
+    private final List<Message> messagesList =  new ArrayList<>();
+    private LinearLayoutManager mLinerlayout;
+    private MessageAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +86,18 @@ public class ChatActivity extends AppCompatActivity {
         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mChatMessageEdt = (EditText) findViewById(R.id.chat_message_edt);
 
+        loadMessages();
+
+        mAdapter = new MessageAdapter(messagesList);
+        mMessageList = (RecyclerView) findViewById(R.id.message_list);
+        mLinerlayout = new LinearLayoutManager(this);
+
+        mMessageList.setHasFixedSize(true);
+        mMessageList.setLayoutManager(mLinerlayout);
+
+        mMessageList.setAdapter(mAdapter);
+
+
         mTitleView.setText(userName);
 
         mRootRef.child("User").child(mchatUserID).addValueEventListener(new ValueEventListener() {
@@ -93,14 +116,10 @@ public class ChatActivity extends AppCompatActivity {
                     long lastTime = Long.parseLong(online);
                     String lastSeenTime = getTimeAgo.getTimeAgo(lastTime,getApplicationContext());
                     mLastSeenView.setText(lastSeenTime);
-
-
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
@@ -141,7 +160,32 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendMessage();
+                mChatMessageEdt.setText("");
             }
+        });
+    }
+
+    private void loadMessages() {
+        mRootRef.child("messages").child(mCurrentUserId).child(mchatUserID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                Message message = dataSnapshot.getValue(Message.class);
+                messagesList.add(message);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
         });
     }
 
@@ -162,6 +206,7 @@ public class ChatActivity extends AppCompatActivity {
             messageMap.put("seen",false);
             messageMap.put("type","text");
             messageMap.put("time",ServerValue.TIMESTAMP);
+            messageMap.put("from",mCurrentUserId);
 
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref +"/"+push_id,messageMap);

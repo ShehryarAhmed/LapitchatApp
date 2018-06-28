@@ -10,7 +10,17 @@
 
     <include layout="@layout/app_bar_layout"
         android:id="@+id/chat_bar"></include>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_list"
+        android:layout_below="@+id/chat_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer"
+        >
+
+    </android.support.v7.widget.RecyclerView>
     <LinearLayout
+        android:id="@+id/footer"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

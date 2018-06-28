@@ -40,6 +40,7 @@ public class LapitChat extends Application {
         Picasso.setSingletonInstance(built);
 
         mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null){
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(mAuth.getCurrentUser().getUid());
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
@@ -49,7 +50,7 @@ public class LapitChat extends Application {
                 if (dataSnapshot != null) {
                     mUserDatabase.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
 //                    mUserDatabase.child("lastSeen").setValue(ServerValue.TIMESTAMP);
-
+//
 
                 }
             }
@@ -58,5 +59,7 @@ public class LapitChat extends Application {
 
             }
         });
+    }
+
     }
 }
