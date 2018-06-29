@@ -18,5 +18,16 @@
         android:layout_marginStart="66dp"
         android:text="asdada dada"
         android:padding="10dp"
+        android:visibility="gone"
         android:background="@drawable/message_text_background"/>
+    <TextView
+        android:id="@+id/current_message_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:text="asdada dada"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/message_text_background"
+        android:visibility="gone"/>
 </RelativeLayout>
