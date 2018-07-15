@@ -1,6 +1,5 @@
 package com.logic.tech.chatapp;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +49,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         String from_user = message.getFrom();
         String message_type = message.getType();
 
-        mUserDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(from_user);
+        mUserDatabaseRef = FirebaseDatabase.getInstance().getReference().child("User").child(from_user);
 
         mUserDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,7 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 String name = dataSnapshot.child("name").getValue().toString();
                 String image = dataSnapshot.child("thumb_image").getValue().toString();
 
-                holder.single_usre_name.setText(name);
+                holder.displayNameTextview.setText(name);
                 Picasso.with(holder.circleImageView.getContext()).load(image)
                         .placeholder(R.drawable.default_image).into(holder.circleImageView);
 
@@ -109,19 +108,19 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
 
+        TextView displayNameTextview;
         TextView messageTextView;
-        TextView single_usre_name;
         TextView currentMessageTextView;
         CircleImageView circleImageView;
         public ImageView messageImage;
         public MessageViewHolder(View itemView) {
             super(itemView);
 
-            single_usre_name = (TextView) itemView.findViewById(R.id.single_usre_name);
-            messageTextView = (TextView) itemView.findViewById(R.id.message_textview);
-            currentMessageTextView = (TextView) itemView.findViewById(R.id.current_message_textview);
-            messageImage= (ImageView) itemView.findViewById(R.id.chat_message);
-            circleImageView = (CircleImageView) itemView.findViewById(R.id.circleImageView);
+            circleImageView = (CircleImageView) itemView.findViewById(R.id.message_circle_imageview);
+            displayNameTextview = (TextView) itemView.findViewById(R.id.message_display_name_txt);
+            messageTextView = (TextView) itemView.findViewById(R.id.message_txt);
+            messageImage= (ImageView) itemView.findViewById(R.id.message_image_view);
+
 
         }
     }

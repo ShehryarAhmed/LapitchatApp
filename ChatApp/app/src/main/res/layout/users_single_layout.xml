@@ -42,13 +42,5 @@
         android:layout_toEndOf="@+id/single_user_status"
         android:src="@color/colorGreen"
         android:visibility="invisible" />
-    <ImageView
-        android:id="@+id/chat_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:layout_below="@+id/single_usre_name"
-        android:layout_alignStart="@+id/single_usre_name"
 
-        />
 </RelativeLayout>
